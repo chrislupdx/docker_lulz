@@ -1,4 +1,4 @@
-version:'3'
+version: '3'
 
 services:
  postgres:
@@ -10,7 +10,7 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=user0
       - POSTGRES_PASSWORD=mysecretpassword
       - POSTGRES_DB=control-db
     #network_mode: host
@@ -31,3 +31,5 @@ services:
 volumes:
   db:
     driver: local
+#       - ./init/mysql/scripts/bash:/docker-entrypoint-initdb.d
+#      - ./init/mysql/scripts/sql:/tmp/sql
