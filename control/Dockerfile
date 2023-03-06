@@ -1,4 +1,6 @@
 FROM ubuntu:latest
+FROM library/postgres
+COPY init.sql /docker-entrypoint-initdb.d/
 MAINTAINER chrisl chlu@pdx.edu
  
 RUN apt-get -y update
