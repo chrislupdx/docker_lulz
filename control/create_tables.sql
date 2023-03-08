@@ -5,7 +5,3 @@ CREATE TABLE IF NOT EXISTS only_table (
 );
 
 --add variables into the table
-
-
-
-
