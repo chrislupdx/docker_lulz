@@ -1,21 +1,17 @@
-version: '3'
+# Use postgres/example user/password credentials
+version: '3.1'
 
 services:
- postgres:
-    container_name: postgres_server
-    image: postgres:15-alpine
+  db:
+    image: postgres
     restart: always
+    environment:
+      POSTGRES_PASSWORD: example
     ports:
       - "5432:5432" 
-    volumes:
-      - ./db:/var/lib/postgresql
-      - ./db:/var/log/
-      - ./db/initdb:/docker-entrypoint-initdb.d
-    networks:
-      - external_network
-    environment:
-      - POSTGRES_USER=user0
-      - POSTGRES_PASSWORD=mysecretpassword
-      - POSTGRES_DB=control-db
-networks:
-      external_network:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
