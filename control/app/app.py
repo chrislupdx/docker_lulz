@@ -28,17 +28,15 @@ def init():
     );'''
     cur.execute(create_table_sql)
     
-    sample_create_number = 100
+    sample_create_number = 10
     for i in range(sample_create_number):
         create_entry_sql = 'INSERT INTO CONTROL_TABLE (ENTRY_ID, ENTRY_VALUE) VALUES ({id}, {entry_val});'.format(id = i, entry_val = i)
         cur.execute(create_entry_sql)
-
     conn.commit()
 
-    #thid display isn't working
     cur.execute("select * from CONTROL_TABLE;")
-    # result = cur.fetchall()
-    # print("result set: ", "\n", result)
+    res = cur.fetchall()
+    print("result set: ", "\n", res)
 
     #display table
     # cur.execute("\\dt")    
