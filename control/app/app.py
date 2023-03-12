@@ -9,6 +9,8 @@ def avg(list):
     return sum_list / length
 
 def init():
+    #when init happens, we should also start up our harasser init
+
     print("starting init")
     conn = psycopg2.connect(
             dbname='postgres_database',
@@ -44,6 +46,7 @@ def init():
     return sample_create_number
 
 def bench(sample_number):
+    #when we call our control bench, we should also call harasser.harass()
     print("starting bench...")
     conn = psycopg2.connect(
             dbname='postgres_database',
@@ -54,21 +57,33 @@ def bench(sample_number):
             )
     cur = conn.cursor()
 
-    #BENCH 1: read every value from the database, this might only measure the front of house's speed at generating these requests
-    read_times = []
-    for i in range(sample_number):
-        add = 'SELECT * FROM CONTROL_TABLE WHERE ENTRY_ID = \'{id}\''.format(id = i)
-        tic = time.perf_counter()
-        cur.execute(add)
+    #bench 2: write every value from the database
+    read_times_2 = []
+    write_number = sample_number
+    for i in range(1, sample_number):
+        print(' i is', i)
+        write = 'UPDATE CONTROL_TABLE SET ENTRY_VAlUE = \'{entry_value_to_edit}\' WHERE ENTRY_ID = \'{idval_to_id}\';'.format(entry_value_to_edit= write_number, idval_to_id=i)
+        print(write)
+        cur.execute(write)
+        conn.commit()
         res = cur.fetchall()
-        toc = time.perf_counter()
-        time_elapsed_for_one = toc - tic
-        read_times.append(time_elapsed_for_one)
+        write_number -= 1
 
-    max_val = max(read_times)
-    min_val = min(read_times)
-    avg_val = avg(read_times)
-    print("max is", max_val, " min is ", min_val, " avg_val ", avg_val)
+    #BENCH 1: read every value from the database, this might only measure the front of house's speed at generating these requests
+    # read_times = []
+    # for i in range(sample_number):
+    #     read_cmd = 'SELECT * FROM CONTROL_TABLE WHERE ENTRY_ID = \'{id}\''.format(id = i)
+    #     tic = time.perf_counter()
+    #     cur.execute(read_cmd)
+    #     res = cur.fetchall()
+    #     toc = time.perf_counter()
+    #     time_elapsed_for_one = toc - tic
+    #     read_times.append(time_elapsed_for_one)
+
+    # max_val = max(read_times)
+    # min_val = min(read_times)
+    # avg_val = avg(read_times)
+    # print("max is", max_val, " min is ", min_val, " avg_val ", avg_val)
 
     pass
 
