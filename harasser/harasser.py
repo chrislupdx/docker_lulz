@@ -1,9 +1,10 @@
 import psycopg2
 
-def harass():
+def harassinit():
+    #when this gets called, harasser-db doesn't exist
     conn = psycopg2.connect(
-        dbname='harasser_db',
-        user='user0',
+        dbname='postgres_database_harasser',
+        user='userharasser',
         port='5555',
         host='localhost',
         password='example'
@@ -34,4 +35,7 @@ def harass():
     #method 1 a shitload of writes
 
     #method 2 a boatload of reads
+    pass
 
+# def harass():
+harassinit()

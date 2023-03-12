@@ -43,51 +43,56 @@ def init():
     cur.execute("select * from CONTROL_TABLE;")
     res = cur.fetchall()
     print("result set: ", "\n", res)
+
+    #TODO CLOSE CONNECTION
     return sample_create_number
 
 #what does bench actually call and what is it for?
 def bench(sample_number):
     #when we call our control bench, we should also call harasser.harass()
+
     print("starting bench...")
     conn = psycopg2.connect(
-            dbname='postgres_database_harasser',
-            user='userharasser',
-            port='5555',
+            dbname='postgres_database',
+            user='user0',
+            port='5432',
             host='localhost',
             password='example'
             )
     cur = conn.cursor()
 
+    #TODO MAKE THIS BENCH WORK 
     #bench 2: write every value from the database
-    read_times_2 = []
-    write_number = sample_number
-    for i in range(1, sample_number):
-        print(' i is', i)
-        #what is the harasser table called
-        write = 'UPDATE CONTROL_TABLE SET ENTRY_VAlUE = \'{entry_value_to_edit}\' WHERE ENTRY_ID = \'{idval_to_id}\';'.format(entry_value_to_edit= write_number, idval_to_id=i)
-        print(write)
-        cur.execute(write)
-        conn.commit()
-        res = cur.fetchall()
-        write_number -= 1
-
-    #BENCH 1: read every value from the database, this might only measure the front of house's speed at generating these requests
-    # read_times = []
-    # for i in range(sample_number):
-    #     read_cmd = 'SELECT * FROM CONTROL_TABLE WHERE ENTRY_ID = \'{id}\''.format(id = i)
-    #     tic = time.perf_counter()
-    #     cur.execute(read_cmd)
+    # read_times_2 = []
+    # write_number = sample_number
+    # for i in range(1, sample_number):
+    #     print(' i is', i)
+    #     #what is the harasser table called
+    #     write = 'UPDATE CONTROL_TABLE SET ENTRY_VAlUE = \'{entry_value_to_edit}\' WHERE ENTRY_ID = \'{idval_to_id}\';'.format(entry_value_to_edit= write_number, idval_to_id=i)
+    #     print(write)
+    #     cur.execute(write)
+    #     conn.commit()
     #     res = cur.fetchall()
-    #     toc = time.perf_counter()
-    #     time_elapsed_for_one = toc - tic
-    #     read_times.append(time_elapsed_for_one)
+    #     write_number -= 1
 
-    # max_val = max(read_times)
-    # min_val = min(read_times)
-    # avg_val = avg(read_times)
-    # print("max is", max_val, " min is ", min_val, " avg_val ", avg_val)
+    #TODO we might want to loop this a few times
+    #BENCH 2: read every value from the database, this might only measure the front of house's speed at generating these requests
+    read_times = []
+    for i in range(sample_number):
+        read_cmd = 'SELECT * FROM CONTROL_TABLE WHERE ENTRY_ID = \'{id}\''.format(id = i)
+        tic = time.perf_counter()
+        cur.execute(read_cmd)
+        res = cur.fetchall()
+        toc = time.perf_counter()
+        time_elapsed_for_one = toc - tic
+        read_times.append(time_elapsed_for_one)
 
-    pass
+    max_val = max(read_times)
+    min_val = min(read_times)
+    avg_val = avg(read_times)
+    print("max is", max_val, " min is ", min_val, " avg_val ", avg_val)
+
+    return True
 
 sample_num = init()
 bench(sample_num)
