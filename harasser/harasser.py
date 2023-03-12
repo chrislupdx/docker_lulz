@@ -24,7 +24,9 @@ def harass():
     #if we can make that run n number of times concurrently?
     interference_number = 10000
     for i in range(interference_number):
-        write_entry_to_db_sql = 'INSERT INTO '
+        write_entry_to_db_sql = 'INSERT INTO HARASSER_TABLE \'{entry_value_to_edit}\' WHERE ENTRY_ID =\'{idval_to_id}\';'.format(entry_value_to_edit = i, idval_to_id=i)
+        cur.execute(write_entry_to_db_sql)
+    conn.commit()
 
     #this does the init
     #then fills everything up, by a large number
