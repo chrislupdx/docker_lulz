@@ -3,6 +3,11 @@ import sys
 import subprocess
 import timeit, time
 
+def avg(list):
+    length = len(list)
+    sum_list = sum(list)
+    return sum_list / length
+
 def init():
     print("starting init")
     conn = psycopg2.connect(
@@ -59,7 +64,12 @@ def bench(sample_number):
         toc = time.perf_counter()
         time_elapsed_for_one = toc - tic
         read_times.append(time_elapsed_for_one)
-    print('times are ', read_times)
+
+    max_val = max(read_times)
+    min_val = min(read_times)
+    avg_val = avg(read_times)
+    print("max is", max_val, " min is ", min_val, " avg_val ", avg_val)
+
     pass
 
 sample_num = init()
