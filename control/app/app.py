@@ -45,13 +45,14 @@ def init():
     print("result set: ", "\n", res)
     return sample_create_number
 
+#what does bench actually call and what is it for?
 def bench(sample_number):
     #when we call our control bench, we should also call harasser.harass()
     print("starting bench...")
     conn = psycopg2.connect(
-            dbname='postgres_database',
-            user='user0',
-            port='5432',
+            dbname='postgres_database_harasser',
+            user='userharasser',
+            port='5555',
             host='localhost',
             password='example'
             )
@@ -62,6 +63,7 @@ def bench(sample_number):
     write_number = sample_number
     for i in range(1, sample_number):
         print(' i is', i)
+        #what is the harasser table called
         write = 'UPDATE CONTROL_TABLE SET ENTRY_VAlUE = \'{entry_value_to_edit}\' WHERE ENTRY_ID = \'{idval_to_id}\';'.format(entry_value_to_edit= write_number, idval_to_id=i)
         print(write)
         cur.execute(write)

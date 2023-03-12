@@ -8,12 +8,12 @@ services:
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: postgres_database_harasser
-      POSTGRES_USER: user0 #doesn't allow login via database-1
+      POSTGRES_USER: userharasser #doesn't allow login via database-1
     ports:
-      - "5555:5555" 
+      - "5555:5432" 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 9090:9090
+      - 8090:8080
 
