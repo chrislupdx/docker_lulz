@@ -1,6 +1,7 @@
 import psycopg2
 import sys
 import subprocess
+import timeit
 
 print("susan")
 
@@ -37,11 +38,11 @@ def init():
     cur.execute("select * from CONTROL_TABLE;")
     res = cur.fetchall()
     print("result set: ", "\n", res)
-    pass
+    return sample_create_number
 
 #bench
-def bench():
-    print("staritng bench")
+def bench(sample_number):
+    print("starting bench")
     #measures the performance of the db in terms of reads and writes
 
     #first connect to the db
@@ -54,9 +55,23 @@ def bench():
             )
     cur = conn.cursor()
 
-    #TRY: if the db exists
-
     #BENCH 1: read every value from the database
+    #this might only measure the front of house's speed at generating these requests
+    read_times = []
+    for i in range(sample_number):
+        add = 'SELECT * FROM CONTROL_TABLE WHERE ENTRY_ID = {id};'.format(id = i)
+        cur.execute(add)
+        res = cur.fetchall()
+        print(res)
+
+        #this is the interpolated version we feed into timeit
+        # cmd = 'curr.execute({sqladd})'.format(sqladd = add)
+        # print('cmd is: ', cmd)
+        
+        # one_read_time = timeit.timeit(cmd)
+        # read_times.append(one_read_time)   
+
+    #mean, max, min
 
     #BENCH 2: re-write every value from database 
 
@@ -64,5 +79,6 @@ def bench():
     #get a distribution
     pass
 
-init()
-bench()
+sample_num = init()
+#we might want more mechanical flexibility here
+bench(sample_num)
