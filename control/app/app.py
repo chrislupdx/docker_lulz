@@ -2,6 +2,7 @@ import psycopg2
 import sys
 import subprocess
 import timeit, time
+# import harassinit from harasser.py #TODO grab harassinit
 
 def avg(list):
     length = len(list)
@@ -93,6 +94,11 @@ def bench(sample_number):
     print("max is", max_val, " min is ", min_val, " avg_val ", avg_val)
 
     return True
+
+def test():
+    #this test is designed call benchmark() and harasssinit()
+        #
+    pass
 
 sample_num = init()
 bench(sample_num)
