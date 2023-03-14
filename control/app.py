@@ -1,8 +1,10 @@
 import psycopg2
-import sys
+import sys, os
 import subprocess
 import timeit, time
-# import harassinit from harasser.py #TODO grab harassinit
+from pprint import pprint
+
+from harasser import harassinit
 
 def avg(list):
     length = len(list)
@@ -85,6 +87,7 @@ def bench(sample_number):
         cur.execute(read_cmd)
         res = cur.fetchall()
         toc = time.perf_counter()
+        conn.commit()
         time_elapsed_for_one = toc - tic
         read_times.append(time_elapsed_for_one)
 
@@ -95,11 +98,15 @@ def bench(sample_number):
 
     return True
 
+#this is the iterative version of it
 def experiment():
     #this test is designed call benchmark() and harasssinit()
-    sample_num = init()
-    
-    bench(sample_num) #todo bench will be called on/in an experimental loop ideally with multiprocessing
+    # a_harass = Harasser()
+    # sample_num = init()
+    harassinit()
+    # bench(sample_num) #todo bench will be called on/in an experimental loop ideally with multiprocessing
     pass
+
+#TODO we need to implmement a multiprocess verison of this
 
 experiment()

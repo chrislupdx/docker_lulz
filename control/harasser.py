@@ -1,5 +1,9 @@
 import psycopg2
 
+# class Harasser:
+#     def __init__(self):
+#         pass
+
 def harassinit():
     #when this gets called, harasser-db doesn't exist
     conn = psycopg2.connect(
@@ -16,18 +20,20 @@ def harassinit():
     '''
     cur.execute(if_table_exists_drop) #i don't know if this is happening
 
-    # create_table_sql = '''CREATE TABLE HARASSER_TABLE(
-    #     ENTRY_ID INT,
-    #     ENTRY_VALUE INT
-    # );'''
-    # cur.execute(create_table_sql)
+    create_table_sql = '''CREATE TABLE HARASSER_TABLE(
+        ENTRY_ID INT,
+        ENTRY_VALUE INT
+    );'''
+    cur.execute(create_table_sql)
 
+    #TODO THIS SHOULD BE HARASS 1  
     #the number could be a factof of whatever you're initting in control
-    # interference_number = 10000
-    # for i in range(interference_number):
-    #     write_entry_to_db_sql = 'INSERT INTO HARASSER_TABLE (ENTRY_ID, ENTRY_VALUE) VALUES ({id}, {entry_val});'.format(id = i, entry_val = i)
-    #     cur.execute(write_entry_to_db_sql)
-    # conn.commit()
+    interference_number = 10
+    for i in range(interference_number):
+        write_entry_to_db_sql = 'INSERT INTO HARASSER_TABLE (ENTRY_ID, ENTRY_VALUE) VALUES ({id}, {entry_val});'.format(id = i, entry_val = i)
+        cur.execute(write_entry_to_db_sql)
+        conn.commit()
+    
     #an update would be vicious
     conn.commit()
 
@@ -37,6 +43,7 @@ def harassinit():
     pass
 
 # def harass():
+# a_harass = Harasser()
 harassinit()
 
 #todo do we need a harass->start?   
