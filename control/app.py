@@ -101,10 +101,9 @@ def bench(sample_number):
 #this is the iterative version of it
 def experiment():
     #this test is designed call benchmark() and harasssinit()
-    # a_harass = Harasser()
-    # sample_num = init()
+    samplenum = init()
     harassinit()
-    # bench(sample_num) #todo bench will be called on/in an experimental loop ideally with multiprocessing
+    bench(samplenum)
     pass
 
 #TODO we need to implmement a multiprocess verison of this
