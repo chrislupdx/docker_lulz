@@ -95,10 +95,11 @@ def bench(sample_number):
 
     return True
 
-def test():
+def experiment():
     #this test is designed call benchmark() and harasssinit()
-        #
+    sample_num = init()
+    
+    bench(sample_num) #todo bench will be called on/in an experimental loop ideally with multiprocessing
     pass
 
-sample_num = init()
-bench(sample_num)
+experiment()
