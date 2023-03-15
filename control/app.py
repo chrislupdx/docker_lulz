@@ -45,8 +45,8 @@ def init():
 
     cur.execute("select * from CONTROL_TABLE;")
     res = cur.fetchall()
-    print("result set: ", "\n", res)
-
+    # print("result set: ", "\n", res)
+    print("init finish")
     #TODO CLOSE CONNECTION
     return sample_create_number
 
@@ -64,6 +64,7 @@ def bench(sample_number):
             )
     cur = conn.cursor()
 
+    #we could literally just replicated this in the init to init for an update bench
     #TODO we might want to loop this a few times
     #BENCH 2: read every value from the database, this might only measure the front of house's speed at generating these requests
     read_times = []
@@ -79,16 +80,17 @@ def bench(sample_number):
     
     #TODO MAKE THIS BENCH WORK 
     #bench 2: write every value from the database
-    read_times_2 = []
-    write_number = sample_number
-    for i in range(1, sample_number):
-        print(' i is', i)
-        #what is the harasser table called
-        write = 'UPDATE CONTROL_TABLE SET ENTRY_VAlUE = \'{entry_value_to_edit}\' WHERE ENTRY_ID = \'{idval_to_id}\';'.format(entry_value_to_edit= write_number, idval_to_id=i)
-        print(write)
-        cur.execute(write)
-        conn.commit()
-        write_number -= 1
+    # read_times = []
+    # write_number = sample_number
+    # for i in range(1, sample_number):
+    #     tic = time.perf_counter()
+    #     write = 'UPDATE CONTROL_TABLE SET ENTRY_VAlUE = \'{entry_value_to_edit}\' WHERE ENTRY_ID = \'{idval_to_id}\';'.format(entry_value_to_edit= write_number, idval_to_id=i)
+    #     cur.execute(write)
+    #     conn.commit()
+    #     write_number -= 1
+    #     toc = time.perf_counter()
+    #     time_elapsed_for_one = toc - tic
+    #     read_times.append(time_elapsed_for_one)
 
     max_val = max(read_times)
     min_val = min(read_times)
