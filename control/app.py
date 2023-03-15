@@ -102,7 +102,7 @@ def bench(sample_number):
 def experiment():
     #this test is designed call benchmark() and harasssinit()
     samplenum = init()
-    harassinit()
+    # harassinit()
     bench(samplenum)
     pass
 

@@ -23,9 +23,10 @@ def harassinit():
     );'''
     cur.execute(create_table_sql)
 
+    print('staritng harasser.py stress:')
     #TODO THIS SHOULD BE HARASS 1  
     #the number could be a factof of whatever you're initting in control
-    interference_number = 1000
+    interference_number = 10000
     for i in range(interference_number):
         write_entry_to_db_sql = 'INSERT INTO HARASSER_TABLE (ENTRY_ID, ENTRY_VALUE) VALUES ({id}, {entry_val});'.format(id = i, entry_val = i)
         cur.execute(write_entry_to_db_sql)
@@ -38,9 +39,3 @@ def harassinit():
 
     print("harasser done")
     pass
-
-# def harass():
-# a_harass = Harasser()
-harassinit()
-
-#todo do we need a harass->start?   
