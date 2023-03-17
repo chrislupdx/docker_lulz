@@ -37,7 +37,7 @@ def init():
     cur.execute(create_table_sql)
     
     #we could throw booleean flags for read and writen                                 
-    sample_create_number = 10
+    sample_create_number = 100
     for i in range(sample_create_number):
         create_entry_sql = 'INSERT INTO CONTROL_TABLE (ENTRY_ID, ENTRY_VALUE) VALUES ({id}, {entry_val});'.format(id = i, entry_val = i)
         cur.execute(create_entry_sql)
@@ -89,7 +89,7 @@ def bench(sample_number):
     #     conn.commit()
     #     write_number -= 1
     #     toc = time.perf_counter()
-    #     time_elapsed_for_one = toc - tic
+    #     time_elapsed_for_one = toc - tic`
     #     read_times.append(time_elapsed_for_one)
 
     max_val = max(read_times)
